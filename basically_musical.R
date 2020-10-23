@@ -1,25 +1,23 @@
-library("dplyr")
 library("audio")
 
 # assign each nucleotide to a musical note
 nucleotide_note = c("G" = "Re", "C" = "Mi", "T" = "Sol", "A" = "La")
 
 
-# assign frequency to each musical note
+# assign the audio frequency to each musical note
 note_frequency = c("Re" = 293.6648, "Mi" = 329.6276, "Sol" = 391.9954, "La" = 440.0000)
 
 
 
-# a random DNA sequence
-DNA_sequence <- "ATGCATGCATCGATGCATGGATCGATGCATGCATGCGCGTAGCTAGCGTAGCTAGCTAGCTGATGCTAGATGCATGCATGCATGCATGCATGCATGCATGCATGC"
+# The nucleotide sequence for LENEP gene
+DNA_sequence <- "ATGCAGCCCCGGACACAGCCCCTAGCCCAAACCCTACCCTTCTTCCTCGGAGGGGCCCCTCGAGACACTGGGCTGCGGGTGCCTGTCATTAAGATGGGCACAGGGTGGGAGGGCTTCCAGCGGACCCTGAAGGAAGTCGCCTACATCCTCCTCTGCTGCTGGTGTATCAAGGAACTGCTGGATTAA"
 
 
-# assign the corresponding frequencies for each nucleotides
+# assign the corresponding frequencies for each nucleotides 
 frequency_sequence = c()
 
 for (i in strsplit(DNA_sequence, "")) {
   frequency_sequence = append(frequency_sequence, note_frequency[nucleotide_note[i]])
-  
 }
 
 
@@ -37,9 +35,12 @@ make_sine <- function(freqency) {
 }
 
 
+# create the wave object for the dna_sequence that requires to be musically encoded
 DNA_wave <-
   mapply(make_sine, frequency_sequence) 
 
+# play the wave file (uses the default audio player)
 play(DNA_wave)
 
 
+#save.wave(DNA_wave, "LENEP.wav")
